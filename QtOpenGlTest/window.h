@@ -1,12 +1,19 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <QWidget>
+#include "glwindow2.h"
 
-class Window
+#include <QWidget>
+#include <QPushButton>
+
+class Window : public QWidget
 {
 public:
     Window();
+
+private:
+    QPushButton *bout;
+    GlWindow2 *opengl;
 };
 
 #endif // WINDOW_H

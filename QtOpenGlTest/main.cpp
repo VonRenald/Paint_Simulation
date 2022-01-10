@@ -1,16 +1,22 @@
 
 #include "glwindow2.h"
+#include "window.h"
 
 #include <QApplication>
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//    Fenetre w;
-//    w.show();
-    GlWindow2 *f = new GlWindow2();
 
+
+    GlWindow2 *f = new GlWindow2();
     f->show();
+
+
+//    Window w;
+//    w.show();
+
     return a.exec();
 }
 

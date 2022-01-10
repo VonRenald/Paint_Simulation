@@ -10,16 +10,29 @@
 
 #include <list>
 
+#include <QPushButton>
+#include <QSlider>
+
+
 
 
 
 class GlWindow2 : public QOpenGLWidget
 {
-//    Q_OBJECT
+
 public:
     GlWindow2();
+
 public slots:
     void resetAfeterResize();
+    void upd();
+
+    void setPenBlack();
+    void setPenRed();
+    void setPenGreen();
+    void setPenBlue();
+
+    void setPenSize(int size);
 
 protected:
     void paintEvent(QPaintEvent *event) ;
@@ -32,19 +45,24 @@ private:
     bool press;
     bool reset;
 
-    int x;
-    int y;
-    int xp;
-    int yp;
+    int penSize;
 
-//    std::list<int> lx;
-//    std::list<int> ly;
+    std::list<int> lx;
+    std::list<int> ly;
 
 
 
     QBrush background;
     QPen pen;
     QPainter painter;
+
+    QSlider *S_sizepen;
+
+    QPushButton *B_reset;
+    QPushButton *B_blackPen;
+    QPushButton *B_bluePen;
+    QPushButton *B_redPen;
+    QPushButton *B_greenPen;
 
 };
 
