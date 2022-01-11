@@ -1,5 +1,5 @@
 #include "glwindow2.h"
-#include<QDebug>
+#include <QDebug>
 #include <QTimer>
 
 
@@ -12,17 +12,13 @@ GlWindow2::GlWindow2()
 
     press = false;
     background = QBrush(QColor(255,255,255));
-    pen = QPen(QColor(0,0,0));
+    R = 0;
+    G = 0;
+    B = 0;
+    pen = QPen(QColor(R,G,B));
     penSize = 1;
 
 
-
-//    painter.setPen(pen);
-
-//    x=0;
-//    y=0;
-//    xp=-1;
-//    yp=-1;
 
     reset = true;
 
@@ -36,25 +32,38 @@ GlWindow2::GlWindow2()
     connect(B_reset,&QPushButton::clicked,this,&GlWindow2::resetAfeterResize);
 
     B_blackPen = new QPushButton("black pen",this);
-    B_bluePen = new QPushButton("bleu pen",this);
-    B_redPen = new QPushButton("red pen",this);
-    B_greenPen = new QPushButton("green pen",this);
+//    B_bluePen = new QPushButton("blue pen",this);
+//    B_redPen = new QPushButton("red pen",this);
+//    B_greenPen = new QPushButton("green pen",this);
 
     B_blackPen->move(0,50);
-    B_redPen->move(0,75);
-    B_greenPen->move(0,100);
-    B_bluePen->move(0,125);
+//    B_redPen->move(0,75);
+//    B_greenPen->move(0,100);
+//    B_bluePen->move(0,125);
 
     connect(B_blackPen,&QPushButton::clicked,this,&GlWindow2::setPenBlack);
-    connect(B_redPen,&QPushButton::clicked,this,&GlWindow2::setPenRed);
-    connect(B_greenPen,&QPushButton::clicked,this,&GlWindow2::setPenGreen);
-    connect(B_bluePen,&QPushButton::clicked,this,&GlWindow2::setPenBlue);
+//    connect(B_redPen,&QPushButton::clicked,this,&GlWindow2::setPenRed);
+//    connect(B_greenPen,&QPushButton::clicked,this,&GlWindow2::setPenGreen);
+//    connect(B_bluePen,&QPushButton::clicked,this,&GlWindow2::setPenBlue);
+
+    S_R = new QSlider(Qt::Horizontal,this);
+    S_R->setRange(0,255);
+    S_R->setGeometry(1,75,72,25);
+    connect(S_R,&QSlider::valueChanged,this,&GlWindow2::updPenRed);
+    S_G = new QSlider(Qt::Horizontal,this);
+    S_G->setRange(0,255);
+    S_G->setGeometry(1,100,72,25);
+    connect(S_G,&QSlider::valueChanged,this,&GlWindow2::updPenGreen);
+    S_B = new QSlider(Qt::Horizontal,this);
+    S_B->setRange(0,255);
+    S_B->setGeometry(1,125,72,25);
+    connect(S_B,&QSlider::valueChanged,this,&GlWindow2::updPenBlue);
 
     S_sizepen = new QSlider(Qt::Horizontal,this);
     S_sizepen->setRange(1,50);
     S_sizepen->setGeometry(1,150,72,25);
 
-//    connect(S_sizepen,SIGNAL(valueChanged(int)),this,SLOT(setPenSize(int)));
+
     connect(S_sizepen,&QSlider::valueChanged,this,&GlWindow2::setPenSize);
     connect(this,&QOpenGLWidget::resized,this,&GlWindow2::resetAfeterResize);
 }
@@ -69,26 +78,10 @@ void GlWindow2::mouseMoveEvent(QMouseEvent *e)
 {
 //    qInfo() << "pos :" << e->pos().x() << e->pos().y();
 
-//    if(xp == -1)
-//    {
-//        x=e->pos().x();
-//        y=e->pos().y();
-//        xp=x;
-//        yp=y;
-//    }
-//    else
-//    {
-//        xp = x;
-//        yp = y;
-//        x=e->pos().x();
-//        y=e->pos().y();
-//    }
-
-//    update();
 
     lx.push_back(e->pos().x());
     ly.push_back(e->pos().y());
-//    update();
+
 
 }
 
@@ -152,8 +145,6 @@ void GlWindow2::mouseReleaseEvent(QMouseEvent *e)
     if(e->button() == Qt::LeftButton && press)
         {
             press = false;
-//            xp = -1;
-//            yp = -1;
             lx.push_back(-1);
             ly.push_back(-1);
 
@@ -170,29 +161,48 @@ void GlWindow2::resetAfeterResize()
 void GlWindow2::setPenBlack()
 {
     pen = QPen(QColor(0,0,0));
-//    pen.setWidth(20);
 }
 
 void GlWindow2::setPenRed()
 {
     pen = QPen(QColor(255,0,0));
-//    pen.setWidth(20);
 }
 
 void GlWindow2::setPenGreen()
 {
     pen = QPen(QColor(0,255,0));
-//    pen.setWidth(20);
 }
 
 void GlWindow2::setPenBlue()
 {
     pen = QPen(QColor(0,0,255));
-//    pen.setWidth(20);
 }
 
 void GlWindow2::setPenSize(int size)
 {
     qInfo() << "penSize";
     penSize = size;
+}
+
+void GlWindow2::updPenColor()
+{
+    pen = QPen(QColor(R,G,B));
+}
+
+void GlWindow2::updPenRed(int red)
+{
+    R = red;
+    updPenColor();
+}
+
+void GlWindow2::updPenGreen(int green)
+{
+    G = green;
+    updPenColor();
+}
+
+void GlWindow2::updPenBlue(int blue)
+{
+    B = blue;
+    updPenColor();
 }

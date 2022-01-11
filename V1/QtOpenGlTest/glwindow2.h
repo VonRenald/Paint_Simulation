@@ -12,6 +12,7 @@
 
 #include <QPushButton>
 #include <QSlider>
+#include <QLabel>
 
 
 
@@ -34,6 +35,10 @@ public slots:
 
     void setPenSize(int size);
 
+    void updPenRed(int red);
+    void updPenGreen(int green);
+    void updPenBlue(int blue);
+
 protected:
     void paintEvent(QPaintEvent *event) ;
 
@@ -42,10 +47,16 @@ private:
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
 
+    void updPenColor();
+
     bool press;
     bool reset;
 
     int penSize;
+
+    int R;
+    int G;
+    int B;
 
     std::list<int> lx;
     std::list<int> ly;
@@ -63,6 +74,14 @@ private:
     QPushButton *B_bluePen;
     QPushButton *B_redPen;
     QPushButton *B_greenPen;
+
+    QSlider *S_R;
+    QSlider *S_G;
+    QSlider *S_B;
+
+    QLabel *L_R;
+    QLabel *L_G;
+    QLabel *L_B;
 
 };
 

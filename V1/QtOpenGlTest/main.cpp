@@ -14,10 +14,7 @@ int main(int argc, char *argv[])
     f->show();
 
 
-//    Window w;
-//    w.show();
-
     return a.exec();
 }
 
-//https://doc.qt.io/qt-5/qtwidgets-widgets-scribble-example.html
+
