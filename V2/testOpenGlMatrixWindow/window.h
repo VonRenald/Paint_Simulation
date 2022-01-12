@@ -11,6 +11,8 @@
 #include <QPushButton>
 #include <QSlider>
 
+#include <QCloseEvent>
+
 class Window : public QWidget
 {
 public:
@@ -18,11 +20,13 @@ public:
 private:
 
     void resizeEvent(QResizeEvent *event);
+    void closeEvent (QCloseEvent *event);
 
     int toolWidth;
 
-    QPushButton *b1;
+    QPushButton *b_reset;
     QPushButton *b2;
+    QSlider *s_size;
 
     QHBoxLayout *l_outilsEcran;
     QVBoxLayout *l_outils;
