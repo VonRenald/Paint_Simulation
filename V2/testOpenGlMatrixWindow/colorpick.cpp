@@ -36,9 +36,9 @@ void ColorPick::paintEvent(QPaintEvent *event)
 
 void ColorPick::setPalette()
 {
-    float r;
-    float g;
-    float b;
+    float r =0;
+    float g =0;
+    float b =0;
     for(int sp = 0; sp<=100;sp++)
     {
         for(int vp=0; vp<=100; vp ++)

@@ -14,6 +14,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QDir>
+
 
 class OpenGl : public QOpenGLWidget
 {
@@ -22,10 +26,17 @@ public:
 
     void setColorPen(QColor color);
     void freePath();
+
+    float getRatioXpY();
+    QPoint getCanvasSize();
+
+    void newCanvas(int w,int h);
 public slots:
     void resetCanvas();
     void setSizeParth(int size);
     void triggerInitPath();
+    void updTimer();
+    void saveCanvas();
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -35,10 +46,13 @@ protected:
 
 private:
 
+    void drawPoint(int x, int y);
+    void drawPoint(QPoint p);
+
     void drawLine(int x1, int y1, int x2, int y2);
     void drawLine(QPoint p1, QPoint p2);
 
-    void drawCercle(int x, int y, int r);
+    void drawCercle(int x, int y);
 
     void initPathCercle(int r);
 
@@ -49,6 +63,8 @@ private:
     int *path;
     int sizePath;
     bool pathInit = false;
+
+    float ratioXpY;
 
     QColor colorPen;
 

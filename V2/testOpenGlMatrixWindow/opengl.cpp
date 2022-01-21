@@ -1,27 +1,19 @@
 #include "opengl.h"
 
+
 OpenGl::OpenGl()
 {
 //    qInfo() << "open init";
 
-    sizeCanvas[0] = 255; // x
-    sizeCanvas[1] = 255; // y
+    newCanvas(255,255);//x,y
 
-    img = new QImage(sizeCanvas[0],sizeCanvas[0],QImage::Format_RGB32);
-
-    for(int y = 0;y<sizeCanvas[1];y++)
-    {
-        for(int x=0;x<sizeCanvas[0];x++)
-        {
-            img->setPixelColor(x,y,QColor(255,255,255));
-        }
-    }
+    resetCanvas();
 //    drawLine(10,20,10,10);
 
     isPressed = false;
     colorPen = QColor(0,0,0);
 //    qInfo() << "call updt";
-    update();
+
 
     sizePath = 0;
     initPathCercle(sizePath);
@@ -33,7 +25,6 @@ void OpenGl::paintEvent(QPaintEvent *event)
 //    qInfo() << "paint evnt";
     painter.begin(this);
 
-    painter.drawImage(event->rect(),*img,img->rect());
 
 
     bool stop = false;
@@ -47,6 +38,7 @@ void OpenGl::paintEvent(QPaintEvent *event)
         if(p2.isNull())
         {
             lpoints.pop_front();
+            drawPoint(p1);
             stop = true;
         }
         else
@@ -54,7 +46,7 @@ void OpenGl::paintEvent(QPaintEvent *event)
             drawLine(p1,p2);
         }
     }
-
+    painter.drawImage(event->rect(),*img,img->rect());
     painter.end();
 
 }
@@ -68,7 +60,7 @@ void OpenGl::mouseMoveEvent(QMouseEvent *e)
 //        img->setPixelColor(xRelative,yRelative,QColor(255,255,255));
 
         lpoints.push_back(QPoint(xRelative,yRelative));
-        update();
+//        update();
     }
 //    qInfo() << "move" << e->pos() << xRelative;
 }
@@ -84,7 +76,7 @@ void OpenGl::mousePressEvent(QMouseEvent *e)
 
         lpoints.push_back(QPoint(xRelative,yRelative));
 
-        update();
+//        update();
     }
 }
 
@@ -95,7 +87,17 @@ void OpenGl::mouseReleaseEvent(QMouseEvent *e)
         isPressed = false;
         lpoints.push_back(QPoint());
     }
-    update();
+//    update();
+}
+
+void OpenGl::drawPoint(int x, int y)
+{
+    drawCercle(x,y);
+}
+
+void OpenGl::drawPoint(QPoint p)
+{
+    drawPoint(p.x(),p.y());
 }
 
 void OpenGl::drawLine(int x1, int y1, int x2, int y2)
@@ -114,7 +116,7 @@ void OpenGl::drawLine(int x1, int y1, int x2, int y2)
         {
             int y = a*x+b;
 //            qInfo() << "x" << x << "y" << y;
-            drawCercle(x,y,5);
+            drawCercle(x,y);
 //            img->setPixelColor(x,y,colorPen);
         }
 
@@ -122,7 +124,7 @@ void OpenGl::drawLine(int x1, int y1, int x2, int y2)
         {
             int x = (a==0)? x1:(float(y)-b)/a;
 //            qInfo() << "x" << x << "y" << y;
-            drawCercle(x,y,5);
+            drawCercle(x,y);
 //            img->setPixelColor(x,y,colorPen);
         }
 
@@ -150,12 +152,13 @@ void OpenGl::resetCanvas()
         for(int x=0;x<sizeCanvas[0];x++)
         {
             img->setPixelColor(x,y,QColor(255,255,255));
+//            img->setPixelColor(x,y,QColor(x%256,y%256,255));
         }
     }
     update();
 }
 
-void OpenGl::drawCercle(int x, int y, int r)
+void OpenGl::drawCercle(int x, int y)
 {
 
     int offset = sizePath;
@@ -278,5 +281,45 @@ void OpenGl::setSizeParth(int size)
 void OpenGl::triggerInitPath()
 {
     initPathCercle(sizePath);
+}
+void OpenGl::updTimer()
+{
+    update();
+}
+float OpenGl::getRatioXpY()
+{
+    return ratioXpY;
+}
+
+void OpenGl::newCanvas(int w,int h)
+{
+    sizeCanvas[1] = h; // y
+    sizeCanvas[0] = w; // x
+
+    ratioXpY = float(sizeCanvas[0]) / sizeCanvas[1];
+
+    img = new QImage(sizeCanvas[0],sizeCanvas[1],QImage::Format_RGB32);
+
+    resetCanvas();
+//    drawLine(10,20,10
+}
+
+void OpenGl::saveCanvas()
+{
+    //QDir::home().dirName()
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Save File"),
+                                         tr("File Name:"), QLineEdit::Normal,
+                                         "file", &ok);
+    if(ok)
+    {
+        text += ".png";
+        img->save(text,"PNG");
+    }
+}
+
+QPoint OpenGl::getCanvasSize()
+{
+    return QPoint(sizeCanvas[0],sizeCanvas[1]);
 }
 
