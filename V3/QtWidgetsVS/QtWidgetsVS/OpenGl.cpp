@@ -77,11 +77,11 @@ void OpenGl::initShaders()
     // Bind shader pipeline for use
     if (!program.bind())
         close();
-    qInfo("-----------------------------------ok-----------------------------------");
+    //qInfo("-----------------------------------ok-----------------------------------");
 }
 void OpenGl::initTextures()
 {
-    qInfo("-----------------------------------ok2-----------------------------------");
+    //qInfo("-----------------------------------ok2-----------------------------------");
     QImage img = QImage(255, 255, QImage::Format_RGB32);
     for (int y = 0; y < 255; y++)
     {
@@ -93,7 +93,7 @@ void OpenGl::initTextures()
     }
     // Load cube.png image
     texture = new QOpenGLTexture(img);
-    qInfo("-----------------------------------ok3-----------------------------------");
+    //qInfo("-----------------------------------ok3-----------------------------------");
     // Set nearest filtering mode for texture minification
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
 
@@ -103,7 +103,7 @@ void OpenGl::initTextures()
     // Wrap texture coordinates by repeating
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
     texture->setWrapMode(QOpenGLTexture::Repeat);
-    qInfo("-----------------------------------ok4-----------------------------------");
+    //qInfo("-----------------------------------ok4-----------------------------------");
 }
 
 void OpenGl::resizeGL(int w, int h)
@@ -123,7 +123,7 @@ void OpenGl::resizeGL(int w, int h)
 
 void OpenGl::paintGL()
 {
-    qInfo("-----------------------------------ok5-----------------------------------");
+    //qInfo("-----------------------------------ok5-----------------------------------");
     // Clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -134,7 +134,7 @@ void OpenGl::paintGL()
     QMatrix4x4 matrix;
     matrix.translate(0.0, 0.0, -4.0);
     //matrix.rotate(rotation);
-    qInfo("-----------------------------------ok5.5-----------------------------------");
+    //qInfo("-----------------------------------ok5.5-----------------------------------");
     // Set modelview-projection matrix
     program.setUniformValue("mvp_matrix", projection * matrix);
     //! [6]
@@ -143,10 +143,10 @@ void OpenGl::paintGL()
     program.setUniformValue("texture", 0);
 
     // Draw cube geometry
-    qInfo("-----------------------------------ok5.6-----------------------------------");
+    //qInfo("-----------------------------------ok5.6-----------------------------------");
     geometries->drawCubeGeometry(&program);
 
-    qInfo("-----------------------------------ok6-----------------------------------");
+    //qInfo("-----------------------------------ok6-----------------------------------");
 }
 
 void OpenGl::resizeWigdet(QSize si)

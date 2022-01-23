@@ -1,5 +1,6 @@
 #include "qtwidgetsvs.h"
 #include "OpenGl.h"
+#include "MainWindow.h"
 #include <QtWidgets/QApplication>
 #include <QLabel>
 #include <QSurfaceFormat>
@@ -13,16 +14,17 @@ int main(int argc, char *argv[])
     //w.show();
     //OpenGl o;
     //o.show();
-    
+    srand(time(NULL));
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
     QSurfaceFormat::setDefaultFormat(format);
 
 
-    QtWidgetsVS w;
+    //QtWidgetsVS w;
+    MainWindow w;
     w.show();
-    //OpenGl window;
-    //window.show();
+    
+    
 
     return a.exec();
 }

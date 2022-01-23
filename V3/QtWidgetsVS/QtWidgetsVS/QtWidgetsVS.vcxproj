@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6EBBA59D-64D4-4AB4-BDF7-B0761C78D285}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
-    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.19041.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
@@ -98,8 +98,13 @@
     <None Include="vshader.glsl" />
     <QtRcc Include="qtwidgetsvs.qrc" />
     <QtMoc Include="qtwidgetsvs.h" />
+    <ClCompile Include="Brush.cpp" />
+    <ClCompile Include="BrushDisplay.cpp" />
+    <ClCompile Include="ColorDispaly.cpp" />
     <ClCompile Include="GeometryEngine.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="OpenGl.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="qtwidgetsvs.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="fshader.glsl" />
@@ -108,7 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="OpenGl.h" />
+    <ClInclude Include="Brush.h" />
+    <ClInclude Include="BrushDisplay.h" />
+    <ClInclude Include="ColorDispaly.h" />
     <ClInclude Include="GeometryEngine.h" />
+    <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
