@@ -82,10 +82,11 @@ void OpenGl::initShaders()
 void OpenGl::initTextures()
 {
     //qInfo("-----------------------------------ok2-----------------------------------");
-    QImage img = QImage(255, 255, QImage::Format_RGB32);
-    for (int y = 0; y < 255; y++)
+    canvasSize = QSize(255, 255);
+    img = QImage(canvasSize.width(), canvasSize.height(), QImage::Format_RGB32);
+    for (int y = 0; y < canvasSize.height(); y++)
     {
-        for (int x = 0; x < 255; x++)
+        for (int x = 0; x < canvasSize.width(); x++)
         {
             img.setPixelColor(x, y, QColor(x, y, 0));
             //            img->setPixelColor(x,y,QColor(x%256,y%256,255));
@@ -118,7 +119,8 @@ void OpenGl::resizeGL(int w, int h)
     projection.setToIdentity();
 
     // Set perspective projection
-    projection.perspective(fov, aspect, zNear, zFar);
+    //projection.perspective(fov, aspect, zNear, zFar);
+    projection.ortho(-1,1,-1,1,-10,10);
 }
 
 void OpenGl::paintGL()
@@ -132,7 +134,7 @@ void OpenGl::paintGL()
     //! [6]
         // Calculate model view transformation
     QMatrix4x4 matrix;
-    matrix.translate(0.0, 0.0, -4.0);
+    matrix.translate(0.0, 0.0, -4);
     //matrix.rotate(rotation);
     //qInfo("-----------------------------------ok5.5-----------------------------------");
     // Set modelview-projection matrix
@@ -157,18 +159,176 @@ void OpenGl::resizeWigdet(QSize si)
     update();
 }
 
-//static const char* vertexshadersource =
-//"#version 330 core\n"
-//"layout (location = 0) in vec3 apos;\n"
-//"void main()\n"
-//"{\n"
-//"   gl_position = vec4(apos.x, apos.y, apos.z, 1.0);\n"
-//"}\0";
-//
-//static const char* fragmentshadersource =
-//"#version 330 core\n"
-//"out vec4 fragcolor;\n"
-//"void main()\n"
-//"{\n"
-//"   fragcolor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-//"}\n\0";
+void OpenGl::updtTexture()
+{
+
+    bool stop = false;
+    while (lpoints.size() >= 2 && !stop)
+    {
+        QPoint p1 = lpoints.front();
+        lpoints.pop_front();
+        QPoint p2 = lpoints.front();
+
+
+        if (p2.isNull())
+        {
+            lpoints.pop_front();
+            drawPoint(p1);
+            stop = true;
+        }
+        else
+        {
+            drawLine(p1, p2);
+        }
+    }
+
+    texture = new QOpenGLTexture(img);
+    //qInfo("-----------------------------------ok3-----------------------------------");
+    // Set nearest filtering mode for texture minification
+    texture->setMinificationFilter(QOpenGLTexture::Nearest);
+
+    // Set bilinear filtering mode for texture magnification
+    texture->setMagnificationFilter(QOpenGLTexture::Linear);
+
+    // Wrap texture coordinates by repeating
+    // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
+    texture->setWrapMode(QOpenGLTexture::Repeat);
+}
+
+void OpenGl::mousePressEvent(QMouseEvent* e)
+{
+    
+    if (e->button() == Qt::LeftButton)
+    {
+        //qDebug() << "pressed";
+        leftClickPress = true;
+        //qDebug() << "pressed Left";
+        int xRelative = e->pos().x() * canvasSize.width() / this->width();
+        int yRelative = canvasSize.height() - (e->pos().y() * canvasSize.height() / this->height());
+        
+        lpoints.push_back(QPoint(xRelative, yRelative));
+
+
+    }
+}
+
+void OpenGl::mouseReleaseEvent(QMouseEvent* e)
+{
+    
+    if (e->button() == Qt::LeftButton && leftClickPress)
+    {
+        //qDebug() << "released";
+        leftClickPress = false;
+        lpoints.push_back(QPoint());
+    }
+
+}
+
+void OpenGl::mouseMoveEvent(QMouseEvent* e)
+{
+
+    if (leftClickPress)
+    {
+        
+        int xRelative = e->pos().x() * canvasSize.width() / this->width();
+        int yRelative = canvasSize.height() - (e->pos().y() * canvasSize.height() / this->height());
+        
+        
+        
+
+        lpoints.push_back(QPoint(xRelative, yRelative));
+        //qDebug() << "drag" << xRelative << yRelative;
+        
+
+    }
+}
+
+void OpenGl::drawLine(int x1, int y1, int x2, int y2)
+{
+
+    float a = float(y2 - y1);
+    float ap = float(x2 - x1);
+    a = (ap == 0) ? 0 : a / ap;
+
+    float b = y2 - (a * x2);
+
+    for (int x = std::min(x1, x2); x <= std::max(x1, x2); x++)
+    {
+        int y = a * x + b;
+
+        drawBrush(QPoint(x,y));
+        //img.setPixelColor(x, y, QColor(0, 0, 255));
+
+    }
+
+    for (int y = std::min(y1, y2); y <= std::max(y1, y2); y++)
+    {
+        int x = (a == 0) ? x1 : (float(y) - b) / a;
+        drawBrush(QPoint(x, y));
+        //img.setPixelColor(x, y, QColor(0, 0, 255));
+
+    }
+
+
+}
+void OpenGl::drawLine(QPoint p1, QPoint p2)
+{
+    drawLine(p1.x(), p1.y(), p2.x(), p2.y());
+}
+void OpenGl::drawPoint(int x, int y)
+{
+    drawBrush(QPoint(x, y));
+    //img.setPixelColor(x, y, QColor(0, 0, 255));
+}
+void OpenGl::drawPoint(QPoint p)
+{
+    drawPoint(p.x(), p.y());
+    //drawBrush(p);
+}
+void OpenGl::updTimer()
+{
+    updtTexture();
+    update();
+}
+void OpenGl::setBrush(Brush* brush)
+{
+    o_brush = brush;
+}
+void OpenGl::drawBrush(QPoint p)
+{
+    //qDebug() << "draw1";
+    QSize sizeBrush = o_brush->get_Size();
+    float* m_brush = o_brush->get_brush();
+    QSize rayon = QSize((sizeBrush.width() - 1) / 2, (sizeBrush.height() - 1) / 2);
+    QPoint global_loc;
+    //qDebug() << "draw2";
+    for (int j = 0; j < sizeBrush.height(); j++)
+    {
+        for (int i = 0; i < sizeBrush.width(); i++)
+        {
+            //qDebug() << "draw3";
+            global_loc = QPoint(p.x() - rayon.width() + i, p.y() - rayon.height() + j);
+            //qDebug() << global_loc;
+            if (global_loc.x() >= 0 and global_loc.x() < canvasSize.width() and
+                global_loc.y() >= 0 and global_loc.y() < canvasSize.height())
+            {
+                QColor pixel = img.pixelColor(global_loc.x(), global_loc.y());
+                img.setPixelColor(global_loc.x(), global_loc.y(), addColor(pixel,color, m_brush[i + j * sizeBrush.width()]));
+                //qDebug() << "draw4";
+            }
+        }
+    }
+
+}
+
+QColor OpenGl::addColor(QColor c1, QColor c2, float alpha)
+{
+    int red = c1.red() - (c1.red() * alpha)  + (c2.red() * alpha);
+    red = (red > 255) ? 255 : red;
+    int green = c1.green() - (c1.green() * alpha) + (c2.green() * alpha);
+    green = (green > 255) ? 255 : green;
+    int blue = c1.blue() - (c1.blue() * alpha) + (c2.blue() * alpha);
+    blue = (blue > 255) ? 255 : blue;
+    return QColor(red, green, blue);
+}
+

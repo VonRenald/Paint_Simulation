@@ -9,6 +9,8 @@
 #include <QMenuBar>
 #include <QMainWindow>
 
+#include <QTimer>
+
 #include "OpenGl.h"
 #include "BrushDisplay.h"
 #include "Brush.h"

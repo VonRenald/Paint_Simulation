@@ -19,7 +19,7 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
     s_sizeBruch = new QSlider(Qt::Horizontal, tool);
     s_sizeBruch->setRange(0, 25);
     w_brush_display = new BrushDisplay(tool);
-
+    canvas->setBrush(w_brush_display->getBrush());
 
 
     mainLeyer = new QHBoxLayout(this);
@@ -54,6 +54,10 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
     connect(b0, &QPushButton::pressed, w_brush_display, &BrushDisplay::setCercle);
     connect(b1, &QPushButton::pressed, w_brush_display, &BrushDisplay::setDecCercle);
     connect(b2, &QPushButton::pressed, w_brush_display, &BrushDisplay::setPaint);
+
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, canvas, &OpenGl::updTimer);
+    timer->start(50);
 
     //o_brush = new Brush();
     //o_brush->initBrushCercle(5);

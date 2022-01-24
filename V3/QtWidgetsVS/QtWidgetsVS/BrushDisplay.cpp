@@ -4,6 +4,7 @@
 BrushDisplay::BrushDisplay(QWidget *parent) : QOpenGLWidget(parent)
 {
 	changeSize(0);
+
 }
 
 
@@ -32,7 +33,11 @@ void BrushDisplay::setBrush(float* brush, int w, int h)
 	update();
 	//qInfo("brush set---------");
 }
-
+Brush* BrushDisplay::getBrush()
+{
+	return &myBrush;
+	//return nullptr;
+}
 
 void BrushDisplay::paintEvent(QPaintEvent* event)
 {

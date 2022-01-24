@@ -16,6 +16,7 @@ public:
     ~BrushDisplay();
 
     void setBrush(float* brush,int w, int h);
+    Brush* getBrush();
 public slots:
     void changeSize(int size);
     void setCercle();
