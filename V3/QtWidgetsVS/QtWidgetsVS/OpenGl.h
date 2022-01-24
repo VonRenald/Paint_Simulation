@@ -11,6 +11,10 @@
 
 #include <QMouseEvent>
 
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QDir>
+
 #include "GeometryEngine.h"
 #include "Brush.h"
 
@@ -26,7 +30,12 @@ public:
     ~OpenGl();
     void resizeWigdet(QSize s);
     void setBrush(Brush *brush);
-    
+    void setColor(QColor newColor);
+    float getRationXpY();
+    QSize getCanvasSize();
+    void NewTexture(int w, int h);
+    void saveTexture();
+
 public slots:
     void updTimer();
 protected:
@@ -64,10 +73,10 @@ private:
     std::list<QPoint> lpoints;
     bool leftClickPress = false;
     QSize canvasSize;
-    QColor color = QColor(0,0,255);
+    QColor color = QColor(0,0,0);
     QImage img;
 
-    Brush* o_brush;
+    Brush* o_brush = nullptr;
 
 };
 

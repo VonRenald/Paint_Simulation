@@ -9,7 +9,7 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
     //QMenu* Fichier = menuBar()->addMenu("&Fichier");
 
 
-    this->setMinimumSize(375, 300);
+    
 
     tool = new QWidget(this);
     notTool = new QWidget(this);
@@ -37,11 +37,36 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
     l_brushType->addWidget(b1);
     l_brushType->addWidget(b2);
 
-    l_tools->addLayout(l_brushType);
-    l_tools->addWidget(s_sizeBruch);
-    l_tools->addWidget(w_brush_display);
+    l_Brush = new QVBoxLayout(tool);
+    l_Brush->addLayout(l_brushType);
+    l_Brush->addWidget(s_sizeBruch);
+    l_Brush->addWidget(w_brush_display);
+
+    l_Color = new QVBoxLayout(tool);
+    colorDisplay = new ColorDisplay(tool);
+    colorPick = new ColorPick(colorDisplay, canvas, tool);
+    s_color = new QSlider(Qt::Horizontal, tool);
+    colorPick->setFixedSize(toolSize, toolSize);
+    colorPick->setMinimumSize(toolSize, toolSize);
+    colorDisplay->setFixedSize(toolSize / 2, toolSize / 2);
+    colorDisplay->setMinimumSize(toolSize / 2, toolSize / 2);
+    l_Color->addWidget(s_color);
+    l_Color->addWidget(colorPick);
+    l_Color->addWidget(colorDisplay);
+
+    //l_tools->addWidget(colorPick);
+    //l_tools->addWidget(colorDisplay);
+
+    l_tools->addLayout(l_Color);
+    l_tools->addLayout(l_Brush);
+    //l_tools->addLayout(l_brushType);
+    //l_tools->addWidget(s_sizeBruch);
+    //l_tools->addWidget(w_brush_display);
     w_brush_display->setFixedSize(toolSize, toolSize);
     //qDebug() <<"w_brush_display size"<< w_brush_display->size();
+
+    
+
 
     l_canvas = new QHBoxLayout(notTool);
     l_canvas->addWidget(canvas);
@@ -54,6 +79,8 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
     connect(b0, &QPushButton::pressed, w_brush_display, &BrushDisplay::setCercle);
     connect(b1, &QPushButton::pressed, w_brush_display, &BrushDisplay::setDecCercle);
     connect(b2, &QPushButton::pressed, w_brush_display, &BrushDisplay::setPaint);
+
+    connect(s_color, &QSlider::sliderMoved, colorPick, &ColorPick::setH);
 
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, canvas, &OpenGl::updTimer);
@@ -70,6 +97,38 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
 
 void QtWidgetsVS::resizeEvent(QResizeEvent* event)
 {
-    qInfo("resized");
+
+    openGlResize();
     //canvas->resizeWigdet(notTool->size());
+}
+
+void QtWidgetsVS::openGlResize()
+{
+    float r = canvas->getRationXpY();
+    int x, y;
+    float wx = notTool->geometry().size().width();
+    float wy = notTool->geometry().size().height();
+    QSize can = canvas->getCanvasSize();
+    if (wx / can.width() < wy / can.height())
+    {
+        x = wx;
+        y = x / r;
+    }
+    else
+    {
+        y = wy;
+        x = y * r;
+    }
+
+    canvas->setFixedSize(x, y);
+}
+
+void QtWidgetsVS::newCanvas(int w, int h)
+{
+    canvas->NewTexture(w, h);
+    openGlResize();
+}
+void QtWidgetsVS::saveTexture()
+{
+    canvas->saveTexture();
 }

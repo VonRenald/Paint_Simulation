@@ -15,7 +15,7 @@
 #include "BrushDisplay.h"
 #include "Brush.h"
 #include "ColorDispaly.h"
-
+#include "ColorPick.h"
 
 
 class QtWidgetsVS : public QWidget
@@ -24,9 +24,14 @@ class QtWidgetsVS : public QWidget
 
 public:
     QtWidgetsVS(QWidget* parent = Q_NULLPTR);
+    void newCanvas(int w, int h);
+    void saveTexture();
 protected:
     void resizeEvent(QResizeEvent* event);
 private:
+
+    void openGlResize();
+
     OpenGl *canvas;
     QPushButton* b0;
     QPushButton *b1;
@@ -39,9 +44,12 @@ private:
     QWidget* tool;
     QWidget* notTool;
 
+    QVBoxLayout* l_Brush = nullptr;
     QSlider* s_sizeBruch = nullptr;
     BrushDisplay* w_brush_display = nullptr;
 
-
-    ColorDisplay* test = nullptr;
+    QVBoxLayout* l_Color;
+    ColorDisplay* colorDisplay = nullptr;
+    ColorPick* colorPick = nullptr;
+    QSlider* s_color = nullptr;
 };

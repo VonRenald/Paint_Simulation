@@ -21,6 +21,24 @@
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
     </Filter>
+    <Filter Include="Source Files\brush">
+      <UniqueIdentifier>{ca2cf751-308a-4cba-9ec4-fcd9eb1db6b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\brush">
+      <UniqueIdentifier>{b2c8dfe9-f982-4071-9663-c4a748e68558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\openGl">
+      <UniqueIdentifier>{f339549e-248e-4783-bcd5-85c6b7de7d83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\perlin">
+      <UniqueIdentifier>{cb4d7c7c-d9fe-4369-bd19-c5ba0c9ba027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\openGl">
+      <UniqueIdentifier>{796e535e-c92e-4704-8aa0-95665c902b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\perlin">
+      <UniqueIdentifier>{47c54288-61ed-4785-9920-c5824d8d7d1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="qtwidgetsvs.qrc">
@@ -43,25 +61,28 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeometryEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brush.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BrushDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ColorDispaly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PerlinNoise.cpp">
+    <ClCompile Include="MainWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainWindow.cpp">
+    <ClCompile Include="Brush.cpp">
+      <Filter>Source Files\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="BrushDisplay.cpp">
+      <Filter>Source Files\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryEngine.cpp">
+      <Filter>Source Files\openGl</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGl.cpp">
+      <Filter>Source Files\openGl</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>Source Files\perlin</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorPick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,36 +90,39 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeometryEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BrushDisplay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ColorDispaly.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brush.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PerlinNoise.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="OpenGl.h">
+    <ClInclude Include="Brush.h">
+      <Filter>Header Files\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="BrushDisplay.h">
+      <Filter>Header Files\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryEngine.h">
+      <Filter>Header Files\openGl</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.h">
+      <Filter>Header Files\perlin</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorPick.h">
       <Filter>Header Files</Filter>
-    </QtMoc>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="fshader.glsl">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\openGl</Filter>
     </None>
     <None Include="vshader.glsl">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\openGl</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="OpenGl.h">
+      <Filter>Header Files\openGl</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

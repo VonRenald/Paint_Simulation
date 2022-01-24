@@ -44,7 +44,7 @@ void BrushDisplay::paintEvent(QPaintEvent* event)
 	painter.begin(this);
 	painter.drawImage(this->rect(), *img, img->rect());
 	painter.end();
-	qInfo("paint brush------------");
+
 }
 void BrushDisplay::setCercle()
 {

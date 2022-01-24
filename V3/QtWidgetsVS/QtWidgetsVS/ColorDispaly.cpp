@@ -11,7 +11,7 @@ void ColorDisplay::paintEvent(QPaintEvent* event)
     painter.begin(this);
     painter.drawImage(event->rect(), *img, img->rect());
     painter.end();
-    qInfo("print---------");
+
 }
 
 void ColorDisplay::setColor(QColor color)

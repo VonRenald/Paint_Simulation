@@ -79,19 +79,26 @@ void OpenGl::initShaders()
         close();
     //qInfo("-----------------------------------ok-----------------------------------");
 }
-void OpenGl::initTextures()
+void OpenGl::NewTexture(int w, int h)
 {
-    //qInfo("-----------------------------------ok2-----------------------------------");
-    canvasSize = QSize(255, 255);
+    canvasSize = QSize(w, h);
     img = QImage(canvasSize.width(), canvasSize.height(), QImage::Format_RGB32);
     for (int y = 0; y < canvasSize.height(); y++)
     {
         for (int x = 0; x < canvasSize.width(); x++)
         {
-            img.setPixelColor(x, y, QColor(x, y, 0));
+            img.setPixelColor(x, y, QColor(255, 255, 255));
             //            img->setPixelColor(x,y,QColor(x%256,y%256,255));
         }
     }
+    updtTexture();
+    update();
+}
+void OpenGl::initTextures()
+{
+    //qInfo("-----------------------------------ok2-----------------------------------");
+    NewTexture(255, 255);
+    
     // Load cube.png image
     texture = new QOpenGLTexture(img);
     //qInfo("-----------------------------------ok3-----------------------------------");
@@ -106,7 +113,25 @@ void OpenGl::initTextures()
     texture->setWrapMode(QOpenGLTexture::Repeat);
     //qInfo("-----------------------------------ok4-----------------------------------");
 }
+void OpenGl::saveTexture()
+{
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Save File"),
+        tr("File Name:"), QLineEdit::Normal,
+        "file", &ok);
+    if (ok)
+    {
 
+        QTransform myTransform;
+        //myTransform.rotate(180);
+        myTransform.scale(1, -1);
+        img = img.transformed(myTransform);
+
+        text += ".png";
+        img.save(text, "PNG");
+        img = img.transformed(myTransform);
+    }
+}
 void OpenGl::resizeGL(int w, int h)
 {
     // Calculate aspect ratio
@@ -153,7 +178,7 @@ void OpenGl::paintGL()
 
 void OpenGl::resizeWigdet(QSize si)
 {
-    qInfo("resized2");
+
     this->resizeGL(this->size().width(),this->size().height());
     //this->setFixedSize(si);
     update();
@@ -188,11 +213,11 @@ void OpenGl::updtTexture()
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
 
     // Set bilinear filtering mode for texture magnification
-    texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    texture->setMagnificationFilter(QOpenGLTexture::Nearest);
 
     // Wrap texture coordinates by repeating
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
-    texture->setWrapMode(QOpenGLTexture::Repeat);
+    texture->setWrapMode(QOpenGLTexture::ClampToEdge);
 }
 
 void OpenGl::mousePressEvent(QMouseEvent* e)
@@ -332,3 +357,15 @@ QColor OpenGl::addColor(QColor c1, QColor c2, float alpha)
     return QColor(red, green, blue);
 }
 
+void OpenGl::setColor(QColor newColor)
+{
+    color = newColor;
+}
+float OpenGl::getRationXpY()
+{
+    return canvasSize.width() / ((float)canvasSize.height());
+}
+QSize OpenGl::getCanvasSize()
+{
+    return canvasSize;
+}
