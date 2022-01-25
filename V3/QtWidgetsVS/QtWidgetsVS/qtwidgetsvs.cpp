@@ -58,6 +58,7 @@ QtWidgetsVS::QtWidgetsVS(QWidget *parent) : QWidget(parent)
     //l_tools->addWidget(colorDisplay);
 
     l_tools->addLayout(l_Color);
+    l_tools->addSpacing(10);
     l_tools->addLayout(l_Brush);
     //l_tools->addLayout(l_brushType);
     //l_tools->addWidget(s_sizeBruch);
