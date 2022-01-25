@@ -1,8 +1,8 @@
-#include "Canvas.h"
+#include "CanvasPN.h"
 #include "qdebug.h"
-Canvas::Canvas(QWidget* parent) : QOpenGLWidget(parent)
+CanvasPN::CanvasPN(QWidget* parent) : QOpenGLWidget(parent)
 {
-    this->setFixedSize(500,500);
+    //this->setFixedSize(500,500);
     QSize si = QSize(1025, 1025);
     PerlinDS perlin = PerlinDS(si.width(),255);
     
@@ -61,11 +61,11 @@ Canvas::Canvas(QWidget* parent) : QOpenGLWidget(parent)
     //    }
     //}
 }
-Canvas::~Canvas()
+CanvasPN::~CanvasPN()
 {
 
 }
-void Canvas::paintEvent(QPaintEvent* event)
+void CanvasPN::paintEvent(QPaintEvent* event)
 {
     painter.begin(this);
     painter.drawImage(this->parentWidget()->rect(), *img, img->rect());

@@ -85,7 +85,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Brush.cpp" />
+    <ClCompile Include="CanvasPN.cpp" />
     <ClCompile Include="PerlinDS.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <QtRcc Include="mainwin.qrc" />
@@ -97,7 +98,8 @@
     <ResourceCompile Include="qt_brush_perlin.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Canvas.h" />
+    <ClInclude Include="Brush.h" />
+    <ClInclude Include="CanvasPN.h" />
     <ClInclude Include="PerlinDS.h" />
     <ClInclude Include="PerlinNoise.h" />
   </ItemGroup>

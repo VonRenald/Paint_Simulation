@@ -7,12 +7,12 @@
 
 #include "PerlinNoise.h"
 #include "PerlinDS.h"
-class Canvas :
+class CanvasPN :
     public QOpenGLWidget
 {
 public:
-    Canvas(QWidget* parent = nullptr);
-    ~Canvas();
+    CanvasPN(QWidget* parent = nullptr);
+    ~CanvasPN();
 protected:
     void paintEvent(QPaintEvent* event);
 private:
