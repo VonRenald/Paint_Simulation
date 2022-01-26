@@ -59,3 +59,7 @@ int Brush::getRayon()
 {
     return m_rayon;
 }
+void Brush::freeTab()
+{
+    free(brush);
+}

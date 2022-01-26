@@ -1,5 +1,6 @@
 #pragma once
 #include "Brush.h"
+#include "BrushMultiple.h"
 #include "PerlinDS.h"
 
 #include <stdlib.h> 

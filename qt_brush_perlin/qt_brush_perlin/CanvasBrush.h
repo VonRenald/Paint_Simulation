@@ -7,7 +7,7 @@
 
 #include "Brush.h"
 #include "PaintBrush.h"
-
+#include "BrushMultiple.h"
 class CanvasBrush :
     public QOpenGLWidget
 {

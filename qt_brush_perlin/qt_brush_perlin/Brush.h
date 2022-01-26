@@ -9,6 +9,7 @@ public:
     float getValue(int x,int y);
     float* getBrush();
     int getRayon();
+    void freeTab();
 private:
     float f(float x);
     void BrushDecCercle(int rayon, float* tab);

@@ -11,7 +11,8 @@ PaintBrush::PaintBrush(int rayon)
 	}
 	p = (2 << p)+1;
 	PerlinDS perlin = PerlinDS(p, 255);
-	Brush brush = Brush(rayon);
+	//Brush brush = Brush(rayon);
+	BrushMultiple brush = BrushMultiple(m_diametre);
 	tab = (float*)malloc(sizeof(float) * m_diametre * m_diametre);
 
 	for (int y = 0; y < m_diametre; y++) {
