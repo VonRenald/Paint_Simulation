@@ -58,6 +58,12 @@
     <ClCompile Include="CanvasPN.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CanvasBrush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PaintBrush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PerlinNoise.h">
@@ -70,6 +76,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CanvasPN.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasBrush.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintBrush.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

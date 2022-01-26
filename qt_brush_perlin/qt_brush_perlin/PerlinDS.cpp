@@ -15,13 +15,6 @@ PerlinDS::PerlinDS(int width,int max,int seed)
 	}
 	m_width = width;
 	tab = (int*)malloc(sizeof(int) * width * width);
-	/*for (int y = 0; y < width; y++)
-	{
-		for (int x = 0; x < width; x++)
-		{
-			tab[linear(x, y, width)] = rand()% max;
-		}
-	}*/
 
 	tab[0] = rand() % max;//0;
 	tab[linear(0, width - 1, width)] = rand() % max; //0;

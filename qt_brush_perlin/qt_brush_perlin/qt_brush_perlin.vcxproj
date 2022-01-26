@@ -86,7 +86,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Brush.cpp" />
+    <ClCompile Include="CanvasBrush.cpp" />
     <ClCompile Include="CanvasPN.cpp" />
+    <ClCompile Include="PaintBrush.cpp" />
     <ClCompile Include="PerlinDS.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <QtRcc Include="mainwin.qrc" />
@@ -99,7 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brush.h" />
+    <ClInclude Include="CanvasBrush.h" />
     <ClInclude Include="CanvasPN.h" />
+    <ClInclude Include="PaintBrush.h" />
     <ClInclude Include="PerlinDS.h" />
     <ClInclude Include="PerlinNoise.h" />
   </ItemGroup>
