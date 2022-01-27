@@ -13,13 +13,23 @@ BrushMultiple::BrushMultiple(int width)
 		}
 	}
 	int nb = rand()%4 + 2;
-	int maxRayon = width / 3 - 1;
-	int minRayon = width / 4;
+	int maxRayon = width / 3.0f - 1;
+	int minRayon = width / 4.0f;
 	int pi = -width, pj = -width,i,j;
+	if (minRayon == 0)
+	{
+		tab[linear(0, 0, width)] = 1;
+	}
+	else
 	for (int e = 0; e < nb; e++)
 	{
-		qDebug() << "--------------" << e;
-		Brush brush = Brush(rand() % (maxRayon-minRayon) + minRayon);
+		int r = (maxRayon == minRayon) ?
+			rand() % (minRayon)+minRayon :
+			rand() % (maxRayon - minRayon) + minRayon;
+
+
+		Brush brush = Brush(r);
+
 		int rayon = brush.getRayon();
 		int diametre = 2 * rayon + 1;
 		

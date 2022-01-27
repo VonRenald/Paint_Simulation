@@ -24,10 +24,14 @@ public:
 	/// <param name="x">x<=0 && x<width</param>
 	/// <param name="y">y<=0 && y<width</param>
 	/// <returns>0<=return<=max</returns>
-	int getValue(int x, int y);
+	float getValue(int x, int y);
+	int getValueRaw(int x, int y);
+	float getValueMaxNormal(int x, int y);
 private:
 	int linear(int x, int y, int z);
 	int* tab = nullptr;
 	int m_width = 0;
+	int m_max = 0;
+	int m_maxValuePresent = 0;
 };
 

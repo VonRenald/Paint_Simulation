@@ -10,17 +10,19 @@ PaintBrush::PaintBrush(int rayon)
 		p++;
 	}
 	p = (2 << p)+1;
-	PerlinDS perlin = PerlinDS(p, 255);
+	PerlinDS perlin = PerlinDS(p, (p/2)+1);
+	qDebug() << "perlinok";
 	//Brush brush = Brush(rayon);
 	BrushMultiple brush = BrushMultiple(m_diametre);
+	qDebug() << "brushok";
 	tab = (float*)malloc(sizeof(float) * m_diametre * m_diametre);
 
 	for (int y = 0; y < m_diametre; y++) {
 		for (int x = 0; x < m_diametre; x++)
 		{
-			int vp = perlin.getValue(x, y);
+			float vp = perlin.getValueMaxNormal(x, y);
 			float vb = brush.getValue(x, y);
-			float val2tav = (vp * vb) / 255.0f;
+			float val2tav = (vp * vb) ;
 			//qDebug() << vp << vb << val2tav*255;
 			tab[linear(x, y, m_diametre)] = val2tav;
 		}
@@ -29,6 +31,7 @@ PaintBrush::PaintBrush(int rayon)
 PaintBrush::~PaintBrush()
 {
 	free(tab);
+	free(tab_resize);
 }
 float PaintBrush::getValue(int x, int y)
 {
@@ -48,4 +51,15 @@ int PaintBrush::getRayon()
 int PaintBrush::linear(int x, int y, int width)
 {
 	return (x + y * width);
+}
+void PaintBrush::init_risize_brush(int rayon)
+{
+	if (rayon > m_rayon)
+	{
+		qDebug() << "rayon trop grand";
+		exit(1);
+	}
+	m_rayon_resize = rayon;
+	int diametre = 2 * rayon + 1;
+	tab_resize = (float*)malloc(sizeof(float) * diametre * diametre);
 }

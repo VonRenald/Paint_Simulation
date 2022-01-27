@@ -14,6 +14,7 @@ PerlinDS::PerlinDS(int width,int max,int seed)
 		srand(seed);
 	}
 	m_width = width;
+	m_max = max;
 	tab = (int*)malloc(sizeof(int) * width * width);
 
 	tab[0] = rand() % max;//0;
@@ -78,6 +79,7 @@ PerlinDS::PerlinDS(int width,int max,int seed)
 				else {
 					tab[linear(x, y, width)] = sol;
 				}
+				if (sol > m_maxValuePresent) { m_maxValuePresent = sol; }
 			}
 		}
 		i = id;
@@ -102,11 +104,27 @@ int PerlinDS::linear(int x, int y, int w)
 {
 	return (x + y * w);
 }
-int PerlinDS::getValue(int x, int y)
+float PerlinDS::getValue(int x, int y)
+{
+	if (x < 0 || x >= m_width || y < 0 || y >= m_width)
+	{
+		return -1;
+	}
+	return (tab[linear(x, y, m_width)]/((float)m_max));
+}
+int PerlinDS::getValueRaw(int x, int y)
 {
 	if (x < 0 || x >= m_width || y < 0 || y >= m_width)
 	{
 		return -1;
 	}
 	return tab[linear(x, y, m_width)];
+}
+float PerlinDS::getValueMaxNormal(int x, int y)
+{
+	if (x < 0 || x >= m_width || y < 0 || y >= m_width)
+	{
+		return -1;
+	}
+	return (tab[linear(x, y, m_width)] / ((float) m_maxValuePresent));
 }

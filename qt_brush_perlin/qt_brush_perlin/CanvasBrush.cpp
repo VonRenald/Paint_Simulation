@@ -4,13 +4,13 @@ CanvasBrush::CanvasBrush(QWidget* parent) : QOpenGLWidget(parent)
 {
     //this->setFixedSize(500,500);
     
-    int rayon = 512;
+    int rayon = 255;
     int diametre = 2 * rayon + 1;
     QSize si = QSize(diametre, diametre);
     //Brush bru = Brush(rayon);
-    //PerlinDS bru = PerlinDS(si.width(), 255);
-    //PaintBrush bru = PaintBrush(rayon);
-    BrushMultiple bru = BrushMultiple(diametre);
+    //PerlinDS bru = PerlinDS(si.width(), 16);
+    PaintBrush bru = PaintBrush(rayon);
+    //BrushMultiple bru = BrushMultiple(diametre);
 
     img = new QImage(si, QImage::Format_RGB32);
     for (int y = 0; y < si.height(); y++)
