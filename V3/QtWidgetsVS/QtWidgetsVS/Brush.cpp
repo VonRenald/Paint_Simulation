@@ -238,3 +238,24 @@ void Brush::testPerlin()
     m_size = QSize(w, h);
     tab_brush_set = true;
 }
+
+void Brush::initMultyBrush(int rayon)
+{
+    if (tab_brush_set)
+    {
+        free(tab_brush);
+        tab_brush_set = false;
+    }
+    int diametre = rayon * 2 + 1;
+    BrushMultiple bru = BrushMultiple(diametre);
+    tab_brush = (float*)malloc(sizeof(float) * diametre * diametre);
+    for (int y = 0; y < diametre; y++)
+    {
+        for (int x = 0; x < diametre; x++)
+        {
+            tab_brush[x + y * diametre] = bru.getValue(x,y);
+        }
+    }
+    m_size = QSize(diametre, diametre);
+    tab_brush_set = true;
+}

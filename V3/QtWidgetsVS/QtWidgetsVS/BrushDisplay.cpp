@@ -73,7 +73,8 @@ void BrushDisplay::changeSize(int size)
 		myBrush.initBrushDecCercle(size);
 		break;
 	case 2:
-		myBrush.initBrushPaint(size, (rand() % 6 + 1), 0, 0);
+		//myBrush.initBrushPaint(size, (rand() % 6 + 1), 0, 0);
+		myBrush.initMultyBrush(size);
 		break;
 	}
 	//

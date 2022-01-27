@@ -4,6 +4,8 @@
 #include <QSize>
 #include <QPoint>
 
+#include "BrushMultiple.h"
+
 class Brush : public QObject
 {
 
@@ -17,6 +19,7 @@ public:
 	void BrushDecCercle(int rayon, float* tab);
 	QSize get_Size();
 	void testPerlin();
+	void initMultyBrush(int rayon);
 private:
 	
 	float distE(QPoint p1, QPoint p2);

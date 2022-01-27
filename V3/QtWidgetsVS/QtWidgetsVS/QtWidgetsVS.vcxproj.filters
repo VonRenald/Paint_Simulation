@@ -85,6 +85,18 @@
     <ClCompile Include="ColorPick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BrushMultiple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PaintBrush.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinDS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brush2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -110,6 +122,18 @@
     </ClInclude>
     <ClInclude Include="ColorPick.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BrushMultiple.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintBrush.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinDS.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brush2.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

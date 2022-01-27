@@ -99,12 +99,16 @@
     <QtRcc Include="qtwidgetsvs.qrc" />
     <QtMoc Include="qtwidgetsvs.h" />
     <ClCompile Include="Brush.cpp" />
+    <ClCompile Include="Brush2.cpp" />
     <ClCompile Include="BrushDisplay.cpp" />
+    <ClCompile Include="BrushMultiple.cpp" />
     <ClCompile Include="ColorDispaly.cpp" />
     <ClCompile Include="ColorPick.cpp" />
     <ClCompile Include="GeometryEngine.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="OpenGl.cpp" />
+    <ClCompile Include="PaintBrush.cpp" />
+    <ClCompile Include="PerlinDS.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="qtwidgetsvs.cpp" />
     <ClCompile Include="main.cpp" />
@@ -115,11 +119,15 @@
   <ItemGroup>
     <QtMoc Include="OpenGl.h" />
     <ClInclude Include="Brush.h" />
+    <ClInclude Include="Brush2.h" />
     <ClInclude Include="BrushDisplay.h" />
+    <ClInclude Include="BrushMultiple.h" />
     <ClInclude Include="ColorDispaly.h" />
     <ClInclude Include="ColorPick.h" />
     <ClInclude Include="GeometryEngine.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="PaintBrush.h" />
+    <ClInclude Include="PerlinDS.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
