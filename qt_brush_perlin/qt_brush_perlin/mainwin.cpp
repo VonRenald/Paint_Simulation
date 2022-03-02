@@ -4,11 +4,11 @@ MainWin::MainWin(QWidget *parent)
     : QMainWindow(parent)
 {
     //this->setFixedSize(500, 500);
-    //affichage = new QWidget(this);
+    affichage = new QWidget(this);
     //affichage->setFixedSize(this->size());
     //ui.setupUi(this);
     
-    //w1 = new CanvasPN(affichage);
+    //w1 = new CanvasPN(this);
     w2 = new CanvasBrush(this);
 
     ////layout = new QGridLayout;
