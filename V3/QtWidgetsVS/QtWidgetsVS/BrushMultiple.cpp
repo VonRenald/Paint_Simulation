@@ -58,7 +58,6 @@ BrushMultiple::BrushMultiple(int width)
 		}
 
 	}
-
 	
 }
 BrushMultiple::~BrushMultiple()
