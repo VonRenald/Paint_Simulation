@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 #include "scene.h"
+#include "scene_2.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

@@ -62,7 +62,7 @@ static const char* fragmentshadersource =
 "       int diam = 2*int(ray)+1;\n"
 "       int indexB = difX+difY*diam;\n"
 "       vec4 color = texture2D(texture, v_texcoord);\n"
-"       color.r = color.r + 0.0f*brush[indexB];\n"
+"       color.r = color.r + 1.0f*brush[indexB];\n"
 "       color.g = color.g + 1.0f*brush[indexB];\n"
 "       color.b = color.b + 1.0f*brush[indexB];\n"
 "       gl_FragColor = color;\n"
@@ -145,11 +145,7 @@ void Scene::resizeGL(int w, int h)
 }
 void Scene::paintGL()
 {
-//    while (!lpoints.empty()){
-//        p = lpoints.front();
-//        lpoints.pop_front();
-
-//    qDebug() << "paintGL";
+    //qDebug() << "paintGL";
     // Clear color and depth buffer
     fbo->bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -157,7 +153,6 @@ void Scene::paintGL()
     texture->bind();
 
     // Calculate model view transformation
-//    qDebug() << "2" << lpoints.size();
     QMatrix4x4 matrix;
     matrix.translate(0.0, 0.0, -4);
     QPoint coor = p*255/500;
@@ -180,72 +175,18 @@ void Scene::paintGL()
     fbo->release();
     plan->drawPlanGeometry(&program);
     QImage img2 = fbo -> toImage();
-//    img2.save("rendertotexture.jpg");
+    img2.save("rendertotexture.jpg");
     texture = new QOpenGLTexture(img2.mirrored());
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
     texture->setMagnificationFilter(QOpenGLTexture::Linear);
     texture->setWrapMode(QOpenGLTexture::Repeat);
-//    }
-}
-void Scene::mousePressEvent(QMouseEvent *e)
-{
-//    lpointsToAdd.push_back(e->pos());
-}
-void Scene::mouseReleaseEvent(QMouseEvent *e)
-{
-//    lpointsToAdd.push_back(e->pos());
-//    qDebug() << lpointsToAdd;
-//    if (lpointsToAdd.size() == 2)
-//    {
-//        QPoint p1 = lpointsToAdd.front();
-//        lpointsToAdd.pop_front();
-//        QPoint p2 = lpointsToAdd.front();
-//        lpointsToAdd.pop_front();
 
-//        lpoints.push_back(p1);
-//        addPointLine(p1,p2);
-//        lpoints.push_back(p2);
-
-
-        //qDebug() << lpoints;
-//    }
-//    qDebug() << lpointsToAdd;
-//    qDebug() << lpoints;
-//    while (!lpoints.empty())
-//    {
-//        p = lpoints.front();
-//        qDebug() << lpoints.size();
-//        update();
-//        paintGL();
-//        lpoints.pop_front();
-//    }
-//    qDebug() << lpoints;
 }
 void Scene::mouseMoveEvent(QMouseEvent* e)
 {
-//    qDebug() << "mouse";
-//    p = e->pos();
-//    update();
-    lpointsToAdd.push_back(e->pos());
-    if (lpointsToAdd.size() >= 2)
-    {
-        QPoint p1 = lpointsToAdd.front();
-        lpointsToAdd.pop_front();
-        QPoint p2 = lpointsToAdd.front();
-
-        lpoints.push_back(p1);
-        addPointLine(p1,p2);
-        lpoints.push_back(p2);
-
-    }
-//    update();
-//    while (!lpoints.empty())
-//    {
-//        p = lpoints.front();
-//        qDebug() << "1" <<lpoints.size();
-//        //update();
-//        lpoints.pop_front();
-//    }
+    //qDebug() << "mouse";
+    p = e->pos();
+    update();
 }
 void Scene::print(int value)
 {
@@ -256,40 +197,4 @@ void Scene::initExt()
 {
     initializeGL();
     //resizeGL(500,500);
-}
-void Scene::addPointLine(QPoint p1, QPoint p2)
-{
-    float a = float(p2.y()-p1.y());
-    float ap = float(p2.x()-p1.x());
-    a = (ap==0)? 0:a/ap;
-    float b = p2.y() -(a * p2.x());
-    QPoint addp;
-    for (int x = std::min(p1.x(),p2.x()); x <= std::max(p1.x(),p2.x());x++)
-    {
-        int y = a*x+b;
-        addp = QPoint(x,y);
-        if (std::find(lpoints.begin(),lpoints.end(),addp) == lpoints.end())
-            lpoints.push_back(addp);
-        //qDebug() << "add" << x << y;
-    }
-
-    for (int y = std::min(p1.y(),p2.y()); y <= std::max(p1.y(),p2.y());y++)
-    {
-        int x = (a==0)? p1.x():(float(y)-b)/a;
-        addp = QPoint(x,y);
-        if (std::find(lpoints.begin(),lpoints.end(),addp) == lpoints.end())
-            lpoints.push_back(addp);
-        //qDebug() << "add" << x << y;
-    }
-}
-void Scene::extUpdate()
-{
-    while(!lpoints.empty())
-    {
-        p = lpoints.front();
-        update();
-
-        lpoints.pop_front();
-    }
-
 }

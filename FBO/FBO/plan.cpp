@@ -9,7 +9,7 @@ struct VertexData
 
 Plan::Plan(): indexBuf(QOpenGLBuffer::IndexBuffer)
 {
-    qDebug() << "init Plan";
+    //qDebug() << "init Plan";
     initializeOpenGLFunctions();
 
     // Generate 2 VBOs
@@ -27,7 +27,7 @@ Plan::~Plan()
 }
 void Plan::initPlanGeometry()
 {
-    qDebug() << "initPlanGeometry";
+    //qDebug() << "initPlanGeometry";
     // For cube we would need only 8 vertices but we have to
     // duplicate vertex for each face because texture coordinate
     // is different.
@@ -60,7 +60,7 @@ void Plan::initPlanGeometry()
 }
 void Plan::drawPlanGeometry(QOpenGLShaderProgram *program)
 {
-    qDebug() << "drawPlanGeometry";
+    //qDebug() << "drawPlanGeometry";
 
     // Tell OpenGL which VBOs to use
     arrayBuf.bind();

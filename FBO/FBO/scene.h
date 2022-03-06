@@ -12,12 +12,20 @@
 
 #include <QMouseEvent>
 
+#include<QOpenGLFramebufferObject>
+
+#include <algorithm>
+
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions
 {
 public:
     //Scene(QWidget* parent = Q_NULLPTR);
     using QOpenGLWidget::QOpenGLWidget;
     ~Scene();
+    void print(int value = 0);
+    void initExt();
+public slots:
+    void extUpdate();
 protected:
     void initializeGL() override;
     void initShaders();
@@ -26,7 +34,11 @@ protected:
     void paintGL() override;
 
     void mouseMoveEvent(QMouseEvent* e) override;
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
 private:
+
+    void addPointLine(QPoint p1, QPoint p2);
 
     Plan* plan = nullptr;
     QOpenGLShaderProgram program;
@@ -35,6 +47,8 @@ private:
     QMatrix4x4 projection;
 
     QPoint p = QPoint(0,0);
+    std::list<QPoint> lpoints;
+    std::list<QPoint> lpointsToAdd;
 
     GLfloat brush[25] = {
                     0.0f,0.5f,0.5f,0.5f,0.0f,
@@ -43,6 +57,9 @@ private:
                     0.5f,0.8f,1.0f,0.8f,0.5f,
                     0.0f,0.5f,0.5f,0.5f,0.0f
                         };
+    QOpenGLFramebufferObject *fbo = nullptr;
+
+
 };
 
 #endif // SCENE_H
