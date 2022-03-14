@@ -16,6 +16,9 @@
 
 #include <algorithm>
 
+#include <math.h>
+#include <stdlib.h>
+
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions
 {
 public:
@@ -46,7 +49,16 @@ private:
     QOpenGLTexture* texture = nullptr;
     QMatrix4x4 projection;
 
-    QPoint p = QPoint(0,0);
+    QPoint p_1 = QPoint(0,0);
+    QPoint p_2 = QPoint(0,0);
+    QPoint p_3 = QPoint(0,0);
+    QPoint p_4 = QPoint(0,0);
+    QPoint p_5 = QPoint(0,0);
+    QPoint p_6 = QPoint(0,0);
+    QPoint p_7 = QPoint(0,0);
+    QPoint p_8 = QPoint(0,0);
+
+    QVector2D p2p[60];
     std::list<QPoint> lpoints;
     std::list<QPoint> lpointsToAdd;
 
@@ -58,7 +70,7 @@ private:
                     0.0f,0.5f,0.5f,0.5f,0.0f
                         };
     QOpenGLFramebufferObject *fbo = nullptr;
-
+    int step=0;
 
 };
 

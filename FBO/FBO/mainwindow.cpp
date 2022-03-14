@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, scene1, &Scene::extUpdate);
-    timer->start(0);
+    timer->start(20);
 
 //    QTimer *timer2 = new QTimer(this);
 //    connect(timer2, &QTimer::timeout, scene1, &Scene::extUpdate);
