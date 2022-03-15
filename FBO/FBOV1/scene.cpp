@@ -58,7 +58,7 @@ static const char* fragmentshadersource =
 "varying vec2 v_texcoord;\n"
 "uniform float texW;\n"
 "uniform float winW;\n"
-"uniform float brush[2601];\n"
+"uniform float brush[255];\n"
 "uniform float ray;\n"
 
 "float drawLine (vec2 p1, vec2 p2, vec2 uv, float a)\n"
@@ -174,9 +174,6 @@ static const char* fragmentshadersource =
 void Scene::initializeGL()
 {
     qDebug() << "initializeGL";
-
-    initBrush();
-
     initializeOpenGLFunctions();
 
     glClearColor(0.2, 0.2, 0.2, 1);
@@ -291,8 +288,8 @@ void Scene::paintGL()
         program.setUniformValueArray("allP",p2p,60);
         program.setUniformValue("texW", 255.0f);
         program.setUniformValue("winW", 500.0f);
-        program.setUniformValueArray("brush",brush,2601,1);
-        program.setUniformValue("ray",25.0f);
+        program.setUniformValueArray("brush",brush,25,1);
+        program.setUniformValue("ray",2.0f);
         //program.setAttributeValue("Coor");
 
         // Draw cube geometry
@@ -465,15 +462,4 @@ void Scene::extUpdate()
     }
 
 
-}
-void Scene::initBrush()
-{
-    PaintBrush bru(25);
-    for (int y = 0; y < 25*2 +1; y++)
-    {
-        for (int x = 0; x < 25*2 +1; x++)
-        {
-            brush[x+y*(25*2 +1)] = bru.getValue(x, y);
-        }
-    }
 }

@@ -1,0 +1,12 @@
+release/brush.o
+release/brushmultiple.o
+release/canvasbrush.o
+release/fbo.o
+release/main.o
+release/mainwindow.o
+release/paintbrush.o
+release/perlinds.o
+release/plan.o
+release/scene.o
+release/scene_2.o
+release/moc_mainwindow.o

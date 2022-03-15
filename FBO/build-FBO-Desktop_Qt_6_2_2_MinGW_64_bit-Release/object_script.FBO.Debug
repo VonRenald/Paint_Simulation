@@ -1,0 +1,12 @@
+debug/brush.o
+debug/brushmultiple.o
+debug/canvasbrush.o
+debug/fbo.o
+debug/main.o
+debug/mainwindow.o
+debug/paintbrush.o
+debug/perlinds.o
+debug/plan.o
+debug/scene.o
+debug/scene_2.o
+debug/moc_mainwindow.o

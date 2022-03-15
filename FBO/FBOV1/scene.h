@@ -9,7 +9,7 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLTexture>
 #include "plan.h"
-#include "paintbrush.h"
+
 #include <QMouseEvent>
 
 #include<QOpenGLFramebufferObject>
@@ -18,7 +18,6 @@
 
 #include <math.h>
 #include <stdlib.h>
-
 
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -42,8 +41,6 @@ protected:
     void mouseReleaseEvent(QMouseEvent *e) override;
 private:
 
-    void initBrush();
-
     void addPointLine(QPoint p1, QPoint p2);
 
     Plan* plan = nullptr;
@@ -65,13 +62,13 @@ private:
     std::list<QPoint> lpoints;
     std::list<QPoint> lpointsToAdd;
 
-    GLfloat brush[2601] ;/*= {
+    GLfloat brush[25] = {
                     0.0f,0.5f,0.5f,0.5f,0.0f,
                     0.5f,0.8f,1.0f,0.8f,0.5f,
                     0.5f,1.0f,1.0f,1.0f,0.5f,
                     0.5f,0.8f,1.0f,0.8f,0.5f,
                     0.0f,0.5f,0.5f,0.5f,0.0f
-                        };*/
+                        };
     QOpenGLFramebufferObject *fbo = nullptr;
     int step=0;
 

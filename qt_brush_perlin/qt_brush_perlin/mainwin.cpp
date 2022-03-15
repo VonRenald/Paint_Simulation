@@ -3,8 +3,9 @@
 MainWin::MainWin(QWidget *parent)
     : QMainWindow(parent)
 {
-    //this->setFixedSize(500, 500);
-    affichage = new QWidget(this);
+    this->setFixedSize(500, 500);
+    //affichage = new QWidget(this);
+    
     //affichage->setFixedSize(this->size());
     //ui.setupUi(this);
     
